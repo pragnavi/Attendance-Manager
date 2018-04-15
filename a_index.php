@@ -1,16 +1,20 @@
 <?php
+session_start();
+?>
+<?php
 	
-	if (isset($_SESSION))
-		/*1*/{
-		header("Location: a_login.html");		
-		/*1*/}
+	//if (isset($_SESSION))
+		//1*/{
+		//header("Location: registration.php");		
+		//*1*/}
 	
-	else{/*2*/
+	//else{/*2*/
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 		{/*3*/
 		  //for login using username and password
 		 	 if (isset($_POST['login-submit'])) 
 		    	   {/*4*/
+				
 		    		$username = $_POST["username"];
 		    		$password = $_POST["password"];
 		    		if (empty($username))
@@ -30,7 +34,7 @@
 						$row = $result->fetch_assoc();
 						$_SESSION['username']=$row["username"];
 						$_SESSION['password']=$row["password"];
-						header("Location: a_login.html");
+						header("Location: registration.php");
 						exit();
 						}/*8*/
 					else{/*9*/
@@ -42,7 +46,7 @@
 		            }/*4*/
 		     	
 		}/*3*/
-	}/*2*/
+	//}/*2*/
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +100,10 @@
 	</div>
   
 </form>
-
+<form method="get" action="addcourse.php">
+    <input type="hidden" name="userrname" value="username">
+    <input type="submit">
+</form>
 </body> 
 
 
