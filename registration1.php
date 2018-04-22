@@ -1,57 +1,53 @@
 <?php
-	if(isset($_SESSION)){
-		header("Location: registration1.php");		
-	}
-	else
-	{
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-		{
-			if (isset($_POST['login-submit'])) 
-		  	{
-			$dname = $_POST["dname"];
+session_start();
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+		{//1
+			if (isset($_POST['login-submit2'])) 
+		  	{//2
+			$cname = $_POST["cname"];
 		    	$section = $_POST["section"];
 			$batch = $_POST["batch"];
-			$period = $_POST["period"];
+			$sem = $_POST["sem"];
 			$session = $_POST["session"];
-			
-			$cname = $_POST["cname"];
-			$sem = $_POST["sem"];	
-			if (empty($dname)||empty($section)||empty($batch)||empty($period)||empty($session)||empty($cname) || empty($sem))
-			{
+			//$username = $_SESSION['username'];
+			if (empty($cname)||empty($section)||empty($batch)||empty($sem) || empty($session))
+			{//3
 				$message = "Enter all credentials";
 				$fErr ="Yes";
-			}
-			else
-			{
+			}//3
+			else if(!(preg_match("/^[A-Za-z0-9]+$/",$cname)))
+			{//4
+				$message = "Enter correct credentials";
+				$fErr = "Yes";			
+			}//4
+			
+
+			if($fErr != "Yes")
+			{//5
 				include "data.php";
-					$sql = "SELECT * FROM details WHERE  AND password='$password'";
+					$sql = "SELECT * FROM `details` WHERE course_code='$cname' AND semester='$sem' AND batch='$batch' AND section='$section' AND session='$session'";
 					$result = $conn->query($sql);
-					if ($result->num_rows == 1 ) 
-						{
-						$row = $result->fetch_assoc();
-						$_SESSION['dname']=$row["dname"];
-						$_SESSION['section']=$row["section"];
-						$_SESSION['batch']=$row["batch"];
-						$_SESSION['period']=$row["period"];
-						$_SESSION['session']=$row["session"];
+					if ($result->num_rows > 0 && !($err)) {//6
+						 	   header("Location: report.php");
+$_SESSION['semester']=$sem;
+$_SESSION['batch']=$batch;
+$_SESSION['section']=$section;
+$_SESSION['session']=$session;
+$_SESSION['course_code']=$cname;
+							}//6		
+							else {//9
+						   	   $message="No record found for the details requested";
+						     	 }//9
+							$conn->close();
+				    		
 						
-						$_SESSION['cname']=$row["cname"];						
-						header("Location: ");
-						exit();
-						
-					    }
-					else{
-						
-						$message = "Invalid credentials";
-					    }
-			}
-		}
-	}
-}
-
-
-
+				      
+				            	   
+			}//5
+		}//2
+	}//1
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,11 +76,11 @@
 <body>
 <div class="container">
 <div class="main">
-<form class="form" method="post" action="#">
+<form class="form" name="login-submit2" method="post" action="#">
 
 <label>Semester :
 <br>
-<select  style="width:325px">
+<select name="sem" style="width:325px">
 <option value=" ">SELECT</option>
 <option value="s1">S1</option>
 <option value="s2">S2</option>
@@ -98,7 +94,7 @@
 </br>
 <label>Batch :
 <br>
-<select  style="width:325px">
+<select name="batch" style="width:325px">
 <option value=" ">SELECT</option>
 <option value="cse">CSE</option>
 <option value="ece">ECE</option>
@@ -109,7 +105,7 @@
 
 <label>Section :
 <br>
-<select  style="width:325px">
+<select name="section" style="width:325px">
 <option value=" ">SELECT</option>
 <option value="a">A</option>
 <option value="b">B</option>
@@ -121,7 +117,7 @@
 
 <label>Session :
 <br>
-<select style="width:325px">
+<select name="session" style="width:325px">
 <option value=" ">SELECT</option>
 <option value="theory">Theory</option>
 <option value="lab">Lab</option>
@@ -130,8 +126,11 @@
 <!-- <label>Faculty :
 <input type="text" name="fname" id="name" placeholder="name"><br></label> -->
 <label>Course Code :
-<input type="text" name="cname" id="cid" placeholder="eg:15CSE313"><br></label>
-<input type="button" name="submit" id="submit" value="Get List">
+<input type="text" name="cname" id="cname" placeholder="eg:15CSE313"><br></label>
+<input type="submit" name="login-submit2" id="login-submit2" class="button" value="View Report">
+<div id="form-groupmsg">
+<label for="remember"><?php echo $message;?></label>
+</div>
 </form>
 </div>
 </body>
