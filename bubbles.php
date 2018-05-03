@@ -38,6 +38,8 @@ function setColor(btn){
 <?php include "data.php";
 $sql = "SELECT Roll_no FROM Student WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname'";
 $result = $conn->query($sql);
+$var = '';
+echo '<input type="text" name="name1" readonly="readonly" value="'.$var.'">';
 //echo "<input type='button' id='button' value='Yay' style='color:black'  onclick='setColor('button','#101010')';/>";
 if ($result->num_rows > 0) {
     // output data of each row

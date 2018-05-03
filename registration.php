@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 		{//1
 			if (isset($_POST['login-submit'])) 
@@ -24,19 +23,10 @@ session_start();
 				$fErr = "Yes";			
 			}//4
 			
-
 			if($fErr != "Yes")
 			{//5
 				include "data.php";
-					/*$query = "SELECT * from `Course` WHERE username='$username'";
-					$result0 = $conn->query($query); // Run your query
-					echo '<select name="sem">'; // Open your drop down box
-					// Loop through the query results, outputing the options one by one
-					while ($row = mysql_fetch_array($result0)) {
-					  echo '<option value="'.$row['semester'].'">'.$row["semester"].'</option>';
-					}
-
-					echo '</select>';*/
+					
 					$sql = "SELECT * FROM `details` WHERE course_code='$cname' AND date='$date' AND semester='$sem' AND batch='$batch' AND section='$section' AND period='$period' AND session='$session'";
 					$result = $conn->query($sql);
 					if ($result->num_rows > 0) {//6
@@ -57,17 +47,21 @@ session_start();
 						//$count=65;
 						
 						//$values = array();
+						$i=0;
+	
+						$sql3 ="INSERT INTO `details`(`date`, `semester`, `batch`, `section`, `period`, `session`, `course_code`, `Roll_no`, `attendance`) VALUES ('$date','$sem','$batch','$section','$period','$session','$cname','$row5[Roll_no]', 'P')";
 					
-							//while ($row5 = $result2->fetch_assoc()){
+							while ($row5 = $result2->fetch_assoc()){
 								 
-                  					 	$sql3 ="INSERT INTO `details`(`date`, `semester`, `batch`, `section`, `period`, `session`, `course_code`, `Roll_no`, `attendance`) VALUES ('$date','$sem','$batch','$section','$period','$session','$cname','$row5[Roll_no]', 'P')";
+                  					 	$i++;
 								
-							//}
+							}
 							//$sql3 .= join(',', $values);
 							//$result3 = mysql_query($sql3);
 				    			if ($conn->query($sql3) === TRUE) {//8
+								echo $i;
 						 	   $message="Details added successfull";
-header("Location: bubbles.php");
+//header("Location: bubbles.php");
 $_SESSION['semester']=$sem;
 $_SESSION['batch']=$batch;
 $_SESSION['section']=$section;
@@ -84,7 +78,6 @@ $_SESSION['course_code']=$cname;
 			}//5
 		}//2
 	}//1
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,25 +113,18 @@ $_SESSION['course_code']=$cname;
 <input type="date" name="date" placeholder="dd/mm/yyyy"><br></label>
 <label>Semester :
 <?php
-/*session_start();
+//session start();
 include "data.php";
 $username = $_SESSION['username'];
-					$sql4 = "SELECT * FROM `Course` WHERE username='$username'";
-					$result0 = $conn->query($sql4); // Run your query
-					while ($row = $result0->fetch_assoc()) {
-					  echo'HI';
-					}
-					echo '<select name="sem" style="width:325px">'; // Open your drop down box
-					// Loop through the query results, outputing the options one by one
-					while ($row = $result0->fetch_assoc()) {$i=0;echo 'ho';
-					  echo '<option value=" ">SELECT</option>';
-					  //echo '<option value="'.$row['semester'].'">'.$row["semester"].'</option>';
-					}
-
-					echo '</select>';
-echo $i;s	*/
+	$sql21 = "SELECT DISTINCT semester FROM `Course` WHERE username='$username'";
+	$result21 =  $conn->query($sql21);
+	echo '<select name="sem" style="width:325px">';
+	while($row21 = $result21->fetch_assoc()){
+		echo '<option value="'.$row21['semester'].'">'.$row21["semester"].'</option>';
+	}
+	echo '</select>';
 ?>
-<br>
+<!--<br>
 <select name="sem" style="width:325px">
 <option value=" ">SELECT</option>
 <option value="s1">S1</option>
@@ -149,7 +135,7 @@ echo $i;s	*/
 <option value="s6">S6</option>
 <option value="s7">S7</option>
 <option value="s8">S8</option>
-</select></br>
+</select>--></br>
 </br>
 <label>Batch :
 <br>
@@ -195,4 +181,3 @@ echo $i;s	*/
 </div>
 </body>
 </html>
-
