@@ -50,8 +50,19 @@ if ($result->num_rows > 0) {
 
 	$t = $row['Roll_no'];
 
-	echo '<li class="row row--1"><ol class="seats" type="A"><li class="seat"><input type="checkbox" id="'.$bc.'" value='.$t.'  /><label for ="'.$bc.'">'.$t.'</label></li></ol></li>';
+	echo '<li class="row row--1"><ol class="seats" type="A"><li class="seat"><input type="checkbox" name="toggle" id="'.$bc.'" value='.$t.'  /><label for ="'.$bc.'">'.$t.'</label></li></ol></li>';
+	$toggle = $bc;
 	//echo "<label for ="$t">$t</label>";
+	echo"<script type='text/javascript'>
+	//alert('Success');
+	var checker = document.getElementById('$bc');
+	checker.onchange = function(){
+if(this.checked){alert('Success');
+}
+else{alert('fail');
+}
+}
+</script>";
 	$bc=$bc+1;
     }
 }

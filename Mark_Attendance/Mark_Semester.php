@@ -249,6 +249,24 @@ $_SESSION['sem1']=$selected;
 
 ?>
 <!--<br>
+
+
+
+$('#$bc').click(function () {
+    //check if checkbox is checked
+    if ($(this).is(':checked')) {
+        
+        $('#sendNewSms').removeAttr('disabled'); //enable input
+        
+    } else {
+        $('#sendNewSms').attr('disabled', true); //disable input
+    }
+})
+
+
+
+
+
 <select name="sem" style="width:325px">
 <option value=" ">SELECT</option>
 <option value="s1">S1</option>
