@@ -68,7 +68,7 @@ session_start();
 <title></title>
 <meta name="robots" content="noindex, nofollow">
 <!-- Include CSS File Here -->
-<link rel="stylesheet" href="style1.css"/>
+<link rel="stylesheet" href="css/style1.css"/>
 <!-- Include JS File Here -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/registration.js"></script> -->

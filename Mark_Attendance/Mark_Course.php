@@ -25,7 +25,7 @@ session_start();
 
 			if($fErr != "Yes")
 			{//5
-				include "data.php";
+				include "/Attendance_Management/data.php";
 
 					$sql = "SELECT * FROM `details` WHERE course_code='$cname' AND date='$date' AND semester='$sem' AND batch='$batch' AND section='$section' AND period='$period' AND session='$session'";
 					$result = $conn->query($sql);
@@ -61,7 +61,7 @@ session_start();
 				    			if ($conn->query($sql3) === TRUE) {//8
 								echo $i;
 						 	   $message="Details added successfull";
-//header("Location: bubbles.php");
+header("Location: /Attendance_Management/bubbles.php");
 $_SESSION['semester']=$sem;
 $_SESSION['batch']=$batch;
 $_SESSION['section']=$section;
@@ -85,10 +85,10 @@ $_SESSION['course_code']=$cname;
 
 
 <div class="topnav">
-               <a href="a_register.php" class="current_page_item" style="float:right">Logout</a>
-                <a href="registration1.php" class="current_page_item" style="float:right">View Attendance</a>
-                 <a href="registration.php" class="active" style="float:right">Mark Attendance</a>
-                  <a style="float:right" class="current_page_item" href="addcourse.php">Add Course</a>
+               <a href="/Attendance_Management/SignUp.php" class="current_page_item" style="float:right">Logout</a>
+                <a href="/Attendance_Management/registration1.php" class="current_page_item" style="float:right">View Attendance</a>
+                 <a href="Mark_Course.php" class="active" style="float:right">Mark Attendance</a>
+                  <a style="float:right" class="current_page_item" href="/Attendance_Management/addcourse.php">Add Course</a>
 
 </div>
 
@@ -99,7 +99,7 @@ $_SESSION['course_code']=$cname;
 <title>Registration Form Using jQuery - Demo Preview</title>
 <meta name="robots" content="noindex, nofollow">
 <!-- Include CSS File Here -->
-<link rel="stylesheet" href="style1.css"/>
+<link rel="stylesheet" href="/Attendance_Management/css/style1.css"/>
 <!-- Include JS File Here -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
 <script type="text/javascript">
@@ -143,25 +143,19 @@ window.onload = function() {
 if(isset($_POST['course']))
 {
   $selected = $_POST['course'];
-	echo "
-						<script type=\"text/javascript\">
-						function reload(form)
-						{
-						var val=form.sem.options[form.sem.options.selectedIndex].value;
-						self.location='trashh.php?sem=' + val;
-						enableField();
-					}
-					echo val;
-						</script>
-				";
+  $_SESSION['course1']=$selected;	
+  header("Location: /Attendance_Management/Mark_Attendance/Mark_Semester.php");
   //echo "This is what I get: ".$selected;
 }
 ?>
+<br><br>
+</label>
 <label>Semester :
 <?php
 //session start();
 include "data.php";
 $username = $_SESSION['username'];
+
 	$sql21 = "SELECT DISTINCT semester FROM `Course` WHERE username='$username' AND course_code='$selected'";
 	$result21 =  $conn->query($sql21);
   //echo '<form name='trial'>';
@@ -181,7 +175,8 @@ $username = $_SESSION['username'];
 if(isset($_POST['sem']))
 {
   $selected1 = $_POST['sem'];
-  echo "
+
+  /*echo "
             <script type=\"text/javascript\">
             function reload(form)
             {
@@ -190,7 +185,7 @@ if(isset($_POST['sem']))
             enableField();
           }
             </script>
-        ";
+        ";*/
   //echo "This is what I get: ".$selected1;
 }
 ?>
