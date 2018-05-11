@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 		{//1
 			if (isset($_POST['login-submit'])) 
@@ -12,6 +13,17 @@ session_start();
 			$session = $_POST["session"];
 			$period = $_POST["period"];
 			$username = $_SESSION['username'];
+			if(empty($username))
+            {
+                echo "You need to SignIn </br><a href=a_index.php>SignIn</a>";
+
+                    
+            }
+            else{
+                echo     "Welcome ".$username."!!!";
+            }
+
+
 			if (empty($date)|| empty($cname)||empty($section)||empty($batch)||empty($sem) || empty($session)|| empty($period))
 			{//3
 				$message = "Enter all credentials";
@@ -48,19 +60,23 @@ session_start();
 						
 						//$values = array();
 						$i=0;
-	
-						$sql3 ="INSERT INTO `details`(`date`, `semester`, `batch`, `section`, `period`, `session`, `course_code`, `Roll_no`, `attendance`) VALUES ('$date','$sem','$batch','$section','$period','$session','$cname','$row5[Roll_no]', 'P')";
+						$k=0;
+						
 					
-							while ($row5 = $result2->fetch_assoc()){
-								 
-                  					 	$i++;
-								
+							while ($row = $result2->fetch_assoc()){
+								$sql3 ="INSERT INTO `details`(`date`, `semester`, `batch`, `section`, `period`, `session`, `course_code`, `Roll_no`, `attendance`) VALUES ('$date','$sem','$batch','$section','$period','$session','$cname','$row[Roll_no]', 'P')"; 
+								$result3 = $conn->query($sql3);
+								$i++;
 							}
 							//$sql3 .= join(',', $values);
-							//$result3 = mysql_query($sql3);
-				    			if ($conn->query($sql3) === TRUE) {//8
-								echo $i;
-						 	   $message="Details added successfull";
+							$sql5 = "SELECT Roll_no FROM `Student` WHERE course_code='$cname' AND semester='$sem' AND batch='$batch' AND section='$section' ";
+						$result5 = $conn->query($sql5);
+							while ($row = $result5->fetch_assoc()){
+								$k++;
+							}
+				    			if ($k === $i) {//8
+							
+						 	   $message="Details added successfully";
 header("Location: bubbles1.php");
 $_SESSION['semester']=$sem;
 $_SESSION['batch']=$batch;

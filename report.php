@@ -35,7 +35,7 @@ print_r($Absentees);*/
 echo "<table border='1' align='center'><tr><th>Date</th><th>Semester</th><th>Batch</th><th>Section</th><th>Period</th><th>Session</th><th>Course Code</th><th>List of Absentees</th></tr>";
 if($result->num_rows > 0){
 	while($row = $result->fetch_assoc()){
-		echo "<tr>";
+		  echo "<tr>";
 		  echo "<td>" . $row['date'] . "</td>";
 		  echo "<td>" . $row['semester'] . "</td>";
 	 	  echo "<td>" . $row['batch'] . "</td>";

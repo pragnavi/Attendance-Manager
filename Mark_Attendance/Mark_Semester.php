@@ -117,7 +117,6 @@ window.onload = function() {
 <div class="container">
 <div class="main">
 <form name='login-submit' class="form" method="post" action="">
-
 <label>Date :
 <input type="date" name="date" placeholder="dd/mm/yyyy"><br></label>
 <label>Course Code :
@@ -160,8 +159,10 @@ $sem = $_SESSION['sem1'];
 	echo '</select>';
 ?>
 <?php
-if(isset($_POST['sem']))
+/*if(isset($_POST['sem']))
 {
+  $username = $_SESSION['username'];
+  include "data.php";
   $selected = $_POST['course'];
   $selected1 = $_POST['sem'];
   //$selected2 = $_SESSION['batch'];
@@ -178,7 +179,7 @@ $_SESSION['course1']=$selected;
 //echo "Fail";
   //	header("Location: /Attendance_Management/Mark_Attendance/Mark_Batch.php");
 
-}
+}*/
 
 ?>
 </label>
@@ -203,27 +204,44 @@ $sem = $_SESSION['sem1'];
 ?>
 <?php
 if(isset($_POST['batch']))
-{
+{echo"YES";
+$username = $_SESSION['username'];
+  include "data.php";
+  $sql222 = "SELECT DISTINCT course_code FROM `Course` WHERE username='$username'";
+  $result222 =  $conn->query($sql222);
+  while($row222 = $result222->fetch_assoc()){echo"YES";
+  if($_POST['course'] = $row222['course_code']){
   $selected = $_POST['course'];
-  $selected1 = $_POST['sem'];
-  $selected2 = $_SESSION['batch'];
-  $_SESSION['batch1']=$selected2;
-  //$course = $_SESSION['course1'];
-  if($selected != $_SESSION['course1']){
+}
+if($selected != $_SESSION['course1']){
 $_SESSION['course1']=$selected; 
 echo "Success";
 
  header("Location: /Attendance_Management/Mark_Attendance/Mark_Semester.php");
 }
 
-if($selected1 != $_SESSION['sem1']){
+
+$_SESSION['course1']=$selected;
+}
+  $sql211 = "SELECT DISTINCT semester FROM `Course` WHERE username='$username'";
+	$result211 =  $conn->query($sql211);
+  while($row211 = $result211->fetch_assoc()){
+  if($_SESSION['sem1'] = $row211['semster']){
+  $selected1 = $_POST['sem'];
+}
+  if($selected1 != $_SESSION['sem1']){
 $_SESSION['sem1']=$selected1; 
 echo "Success1";
 
  header("Location: /Attendance_Management/Mark_Attendance/Mark_Semester.php");
 }
-$_SESSION['course1']=$selected;
 $_SESSION['sem1']=$selected;
+}
+  $selected2 = $_SESSION['batch'];
+  $_SESSION['batch1']=$selected2;
+  //$course = $_SESSION['course1'];
+  
+
 //echo "Fail";
   //	header("Location: /Attendance_Management/Mark_Attendance/Mark_Batch.php");
 
