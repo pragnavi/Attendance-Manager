@@ -14,7 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		  	{//2
 				include "data.php";
 				$tog = $_POST['toggle'];
+				$sql1 = "UPDATE `details` SET attendance='P' WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname' AND date = '$date' AND period = '$period' AND session = '$session'";
+				    $result1 = $conn->query($sql1);
 				for ($i = 0; $i < count($tog); $i++) {
+					echo $tog[$i];				    	
 				    $sql = "UPDATE `details` SET attendance='A' WHERE Roll_no='$tog[$i]' AND semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname' AND date = '$date' AND period = '$period' AND session = '$session'";
 				    $result = $conn->query($sql);
 				}
@@ -42,8 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 <form name='login-submit' class="form" method="post" action="">
 	<?php
 	include "data.php";
-	$sql = "SELECT Roll_no FROM Student WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname'";
+	$sql = "SELECT * FROM Student WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname'";
 	$result = $conn->query($sql);
+	$sql1 = "SELECT * FROM details WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname' AND date = '$date' AND period = '$period' AND session = '$session'";
+	$result1 = $conn->query($sql1);
 	?>
 
   <div class="plane">
@@ -55,12 +60,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	
 <?php
 
-if ($result->num_rows > 0) {
+if ($result1->num_rows > 0) {
 	$bc=1;
-    while($row = $result->fetch_assoc()) {
-
+    while($row = $result1->fetch_assoc()) {
+	$display = 0;
 	$t = $row['Roll_no'];
-	echo '<li class="row row--1"><ol class="seats" type="A"><li class="seat"><input type="checkbox" name="toggle[]" id="'.$bc.'" value='.$t.'  /><label for ="'.$bc.'">'.$t.'</label></li></ol></li>';
+	//echo $t;
+	echo $row['attendance'];
+	if($row['attendance'] == 'A'){
+		$display = 1;
+	}
+	 $disable = $display?'checked':"";
+	
+	echo '<li class="row row--1"><ol class="seats" type="A"><li class="seat"><input type="checkbox" '.$disable.' name="toggle[]" id="'.$bc.'" value='.$t.'  /><label for ="'.$bc.'">'.$t.'</label></li></ol></li>';
 	$bc=$bc+1;
     }
 }
