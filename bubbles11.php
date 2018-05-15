@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <?php
 session_start();
+$session = $_SESSION['session'];
+$period = $_SESSION['period'];
+$date = $_SESSION['date'];
 $sem = $_SESSION['semester'];
 $batch = $_SESSION['batch'];
 $section = $_SESSION['section'];
@@ -9,7 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 		{//1
 			if (isset($_POST['login-submit'])) 
 		  	{//2
-				
+				include "data.php";
+				$tog = $_POST['toggle'];
+				for ($i = 0; $i < count($tog); $i++) {
+				    //echo $tog[$i];
+				    echo $date;
+				    $sql = "UPDATE `details` SET attendance='A' WHERE Roll_no='$tog[$i]' AND semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname' date = '$date' period = '$period' session = '$session'";
+				    $result = $conn->query($sql);echo 1;
+				    $sql1 = "SELECT * FROM `details` WHERE Roll_no='$tog[$i]' AND semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname' date = '$date' period = '$period session = '$session'";
+				    $result1 = $conn->query($sql1);
+			 	  /*while ($row1 = $result1->fetch_assoc()){echo 1;
+								echo $row1[Roll_no];
+							}*/
+				}
 			}//2
 		}//1
 ?>
@@ -60,58 +75,9 @@ if ($result->num_rows > 0) {
 	$count = 0;
 	//$display = (mysqli_num_rows($row) == 0);
 	//$disable = $display?'disabled':"";
-	echo '<li class="row row--1"><ol class="seats" type="A"><li class="seat"><input "input_class_checkbox" '.$disable.' type="checkbox" name="toggle" id="'.$bc.'" value='.$t.'  /><label for ="'.$bc.'">'.$t.'</label></li></ol></li>';
-	$toggle = $bc;
-	  
-            
-            
-
-          //query = "SELECT * FROM `seat_layout WHERE `seat_status` = 1";
-          //$result = mysqli_query($conn,$query);
-          //$row = mysqli_fetch_assoc($result);
-          //echo mysqli_num_rows($result);
-          
-          //echo $display;
-          
-          //echo '<input type="checkbox" id="1D" value="1D" />';
-       
-	//echo "<label for ="$t">$t</label>";
-	echo"<script type='text/javascript'>
-	//alert('Success');
-	//console.log($bc);
-	var checker = document.getElementById('$bc');
-	checker.onchange = function(){
-if(this.checked){//alert('Success');
-var count = $count;
-count = 1;
-console.log(count);
-}
-else{//alert('fail');
-var count = $count;
-console.log(count);
-}
- $.ajax({
-        type: 'post',
-        url: 'http://localhost/Attendance_Management/bubbles1.php',
-        data: {
-            count: count
-        },
-        success: function( data ) {
-            console.log( data );
-        }
-    });
-}
-</script>";
-	//if ($row['toggle'] == 'green') { echo "checked='checked'"; }
-	 
+	echo '<li class="row row--1"><ol class="seats" type="A"><li class="seat"><input type="checkbox" name="toggle[]" id="'.$bc.'" value='.$t.'  /><label for ="'.$bc.'">'.$t.'</label></li></ol></li>';
 	$bc=$bc+1;
-	//echo $count;
-	//echo "<script>document.writeln(count);</script>";
-	//$count= $_COOKIE['count'];
-	//$count = var count;
-	if($count == 1){
-		echo $t;	
-	}
+	
     }
 }
 else {

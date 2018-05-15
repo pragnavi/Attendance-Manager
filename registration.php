@@ -77,7 +77,10 @@ session_start();
 				    			if ($k === $i) {//8
 							
 						 	   $message="Details added successfully";
-header("Location: bubbles1.php");
+header("Location: bubbles11.php");
+$_SESSION['session'] = $session;
+$_SESSION['period'] = $period;
+$_SESSION['date'] = $date;
 $_SESSION['semester']=$sem;
 $_SESSION['batch']=$batch;
 $_SESSION['section']=$section;
