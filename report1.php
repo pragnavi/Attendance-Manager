@@ -16,6 +16,7 @@ $section = $_SESSION['section'];
 $session = $_SESSION['session'];
 $cname = $_SESSION['course_code'];
 include "data.php";
+
 echo "<table border='1' align='center'><tr><th>Date</th><th>Period</th><th>List of Absentees</th></tr>";
 $sql = "SELECT DISTINCT date FROM `details` WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND session = '$session' AND course_code = '$cname'";
 $result = $conn->query($sql);

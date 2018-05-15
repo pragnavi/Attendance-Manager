@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 				    $sql = "UPDATE `details` SET attendance='A' WHERE Roll_no='$tog[$i]' AND semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname' AND date = '$date' AND period = '$period' AND session = '$session'";
 				    $result = $conn->query($sql);
 				}
+			
+				header("Location:registration.php");
 			}//2
 		}//1
 ?>
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 	<?php
 	include "data.php";
 	//$var = "$session"+","+" $period"+","+" $date"+"," +"$sem"+"," +"$batch"+","+" $section"+","+ "$cname";
-	$var = "Session = $session"+"Period=$period";
+	$var = "Session = $session\n"+"Period=$period";
 	echo '<input type="text" name="name1" readonly="readonly" value="'.$var.'">';
 	$sql = "SELECT Roll_no FROM Student WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname'";
 	$result = $conn->query($sql);

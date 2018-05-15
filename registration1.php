@@ -9,7 +9,11 @@ session_start();
 			$batch = $_POST["batch"];
 			$sem = $_POST["sem"];
 			$session = $_POST["session"];
-			//$username = $_SESSION['username'];
+			$username = $_SESSION['username'];
+			
+			if(empty($username))
+			{echo "You need to SignIn";}
+			else{
 			if (empty($cname)||empty($section)||empty($batch)||empty($sem) || empty($session))
 			{//3
 				$message = "Enter all credentials";
@@ -44,6 +48,7 @@ $_SESSION['course_code']=$cname;
 				      
 				            	   
 			}//5
+			}
 		}//2
 	}//1
 ?>
@@ -51,15 +56,71 @@ $_SESSION['course_code']=$cname;
 <!DOCTYPE html>
 <html>
 <head>
+<html lang=en>
+ <title>Form</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<div class="topnav">
-               <a href="home.php" class="current_page_item" style="float:right">Logout</a>
-                <a href="registration1.php" class="active" style="float:right">View Attendance</a>
-                 <a href="registration.php" class="current_page_item" style="float:right">Mark Attendance</a>
-                  <a style="float:right" class="current_page_item" href="addcourse.php">Add Course</a>
-          
+  <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+  <link href="a_home.css" rel="stylesheet" type="text/css" media="screen" />
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body, html {
+    height: 100%;
+    line-height: 1.2;
+}
+
+.w3-bar .w3-button {
+    padding: 16px;
+}
+</style>
+
+<body>
+
+
+
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-card" id="myNavbar">
+    <a href="a_home.html" class="w3-bar-item w3-button w3-wide"><i class="fa fa-graduation-cap fa-3x "></i></a>
+    <!-- Right-sided navbar links -->
+    <div class="w3-right w3-hide-small">
+      <a href="SignIn.php" class="w3-bar-item w3-button"><h5>LOG OUT</h5></a>
+      <a href="registration1.php" class="w3-bar-item w3-button w3-blue"><h5>VIEW ATTENDANCE</h5></a>
+       <a href="registration.php" class="w3-bar-item w3-button"><h5>MARK ATTENDANCE</h5></a>
+	 <a href="addcourse.php" class="w3-bar-item w3-button"><h5>ADD COURSE</h5></a>
+      
+      
+     
+    </div>
+
+		
+
+<!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
 </div>
+
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+  <a href="SignIn.php" onclick="w3_close()" class="w3-bar-item w3-button">Log out</a>
+ <a href="registration1.php" onclick="w3_close()" class="w3-bar-item w3-button w3-blue">View Attendance</a>
+       <a href="registration.php"  onclick="w3_close()" class="w3-bar-item w3-button">Mark Attendance</a>
+	 <a href="addcourse.php"  onclick="w3_close()" class="w3-bar-item w3-button">Add Course</a>
+      
+  
+</nav>
 
 
 
@@ -68,19 +129,32 @@ $_SESSION['course_code']=$cname;
 <title>Registration Form Using jQuery - Demo Preview</title>
 <meta name="robots" content="noindex, nofollow">
 <!-- Include CSS File Here -->
-<link rel="stylesheet" href="css/style1.css"/>
+<link rel="stylesheet" href="style1.css"/>
 <!-- Include JS File Here -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/registration.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/registration.js"></script> -->
 </head>
+
+
+
+
+
+
+
 <body>
+<br>
+<br>
 <div class="container">
 <div class="main">
 <form class="form" name="login-submit2" method="post" action="#">
 
-<label>Semester :
+
 <br>
-<select name="sem" style="width:325px">
+<label>Semester :
+</br>
+<br>
+
+<select name="sem" style="width:218px">
 <option value=" ">SELECT</option>
 <option value="s1">S1</option>
 <option value="s2">S2</option>
@@ -94,7 +168,7 @@ $_SESSION['course_code']=$cname;
 </br>
 <label>Batch :
 <br>
-<select name="batch" style="width:325px">
+<select name="batch" style="width:218px">
 <option value=" ">SELECT</option>
 <option value="cse">CSE</option>
 <option value="ece">ECE</option>
@@ -105,7 +179,7 @@ $_SESSION['course_code']=$cname;
 
 <label>Section :
 <br>
-<select name="section" style="width:325px">
+<select name="section" style="width:218px">
 <option value=" ">SELECT</option>
 <option value="a">A</option>
 <option value="b">B</option>
@@ -117,7 +191,7 @@ $_SESSION['course_code']=$cname;
 
 <label>Session :
 <br>
-<select name="session" style="width:325px">
+<select name="session" style="width:218px">
 <option value=" ">SELECT</option>
 <option value="theory">Theory</option>
 <option value="lab">Lab</option>

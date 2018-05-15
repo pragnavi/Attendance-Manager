@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['username']);
 session_destroy();
 
-header("Location: a_register.php");
+header("Location: SignIn.php");
 exit;
 ?>
 	
