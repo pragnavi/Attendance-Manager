@@ -42,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 <form name='login-submit' class="form" method="post" action="">
 	<?php
 	include "data.php";
+	//$var = "$session"+","+" $period"+","+" $date"+"," +"$sem"+"," +"$batch"+","+" $section"+","+ "$cname";
+	$var = "Session = $session"+"Period=$period";
+	echo '<input type="text" name="name1" readonly="readonly" value="'.$var.'">';
 	$sql = "SELECT Roll_no FROM Student WHERE semester = '$sem' AND batch = '$batch' AND section = '$section' AND course_code = '$cname'";
 	$result = $conn->query($sql);
 	?>

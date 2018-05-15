@@ -66,7 +66,7 @@ if ($result1->num_rows > 0) {
 	$display = 0;
 	$t = $row['Roll_no'];
 	//echo $t;
-	echo $row['attendance'];
+	//echo $row['attendance'];
 	if($row['attendance'] == 'A'){
 		$display = 1;
 	}

@@ -28,7 +28,7 @@ session_start();
 					$sql = "SELECT * FROM `details` WHERE course_code='$cname' AND semester='$sem' AND batch='$batch' AND section='$section' AND session='$session'";
 					$result = $conn->query($sql);
 					if ($result->num_rows > 0 && !($err)) {//6
-						 	   header("Location: report.php");
+						 	   header("Location: report1.php");
 $_SESSION['semester']=$sem;
 $_SESSION['batch']=$batch;
 $_SESSION['section']=$section;
@@ -54,7 +54,7 @@ $_SESSION['course_code']=$cname;
 
 
 <div class="topnav">
-               <a href="a_register.php" class="current_page_item" style="float:right">Logout</a>
+               <a href="home.php" class="current_page_item" style="float:right">Logout</a>
                 <a href="registration1.php" class="active" style="float:right">View Attendance</a>
                  <a href="registration.php" class="current_page_item" style="float:right">Mark Attendance</a>
                   <a style="float:right" class="current_page_item" href="addcourse.php">Add Course</a>
@@ -68,7 +68,7 @@ $_SESSION['course_code']=$cname;
 <title>Registration Form Using jQuery - Demo Preview</title>
 <meta name="robots" content="noindex, nofollow">
 <!-- Include CSS File Here -->
-<link rel="stylesheet" href="style1.css"/>
+<link rel="stylesheet" href="css/style1.css"/>
 <!-- Include JS File Here -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/registration.js"></script>
