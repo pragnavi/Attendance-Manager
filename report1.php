@@ -40,6 +40,7 @@ foreach($result as $row){
 		echo "<td>" . $row['date'] . "</td>";
 		echo "<td>" . $row1[$i] . "</td>";
 		echo "<td>" . $str . "</td>";
+		echo "<td><a href=bubbles11.php>Edit</a></td>";
 		echo "</tr>";
 		//echo $row1[$i];	
 		$i++;		
